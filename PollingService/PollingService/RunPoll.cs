@@ -6,6 +6,7 @@ namespace PollingService
     public class RunPoll
     {
         private AppSettings _appSettings;
+        private const int MINIMUMINTERVAL30SECONDS = 30000;
 
         public RunPoll()
         {
@@ -16,7 +17,7 @@ namespace PollingService
         public void Start()
         {
             Timer timer = new Timer();
-            timer.Interval = _appSettings.PollingIntervalInMiliSeconds;
+            timer.Interval = _appSettings.PollingIntervalInMiliSeconds > MINIMUMINTERVAL30SECONDS ? _appSettings.PollingIntervalInMiliSeconds : MINIMUMINTERVAL30SECONDS;
             timer.Elapsed += new ElapsedEventHandler(this.OnTimer);
             timer.Start();
 

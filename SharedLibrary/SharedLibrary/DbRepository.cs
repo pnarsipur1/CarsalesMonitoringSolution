@@ -11,7 +11,7 @@ namespace SharedLibrary
         {   
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                var sql = $"insert into QueueHistory ([MessageCount], [QueueName], [CreatedAt]) values({queueCountDTO.MessageCount},{queueCountDTO.QueueName}, {queueCountDTO.CreatedAt})";
+                var sql = $"insert into QueueHistory ([MessageCount], [QueueName], [CreatedAt]) values({queueCountDTO.MessageCount},'{queueCountDTO.QueueName}', '{queueCountDTO.CreatedAt}')";
                 cnn.Open();
                 using (SqlCommand cmd = new SqlCommand(sql, cnn))
                 {
