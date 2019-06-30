@@ -40,11 +40,12 @@
             const newData = createArray.map((array) => {
                 return array.map((item) => {
                     let messageBox = createNode('div'),
-                        message = createNode('div');
+                        message = createNode('span');
                     messageBox.className = 'message-box';
                     message.className = 'message';
                     const dateToString = new Date(`${item.CreatedAt}`);
-                    message.innerHTML = `Posted On: ${dateToString.toString()} Messages: ${item.MessageCount} `;
+                    messageBox.innerHTML = `Posted On: ${dateToString.toString()}`;
+                    message.innerHTML = `Messages: ${item.MessageCount} `;
                     append(messageBox, message);
                     append(divHistory, messageBox);
                 });
@@ -59,11 +60,14 @@
         .then(function (data) {
             let givenData = data.results;
             let messageBox = createNode('div'),
-                message = createNode('div');
+                message = createNode('span');
             messageBox.className = 'message-box';
             message.className = 'message';
             const dateToString = new Date(`${givenData.CreatedAt}`);
-            message.innerHTML = `Message count: ${givenData.MessageCount} Posted On: ${dateToString.toString()}`;
+            messageBox.innerHTML = `Posted On: ${dateToString.toString()}`;
+            message.innerHTML = `Messages: ${givenData.MessageCount}`;
+          
+            
             append(messageBox, message);
             append(divCurrent, messageBox);
         })

@@ -4,7 +4,7 @@
     --carsales-blue: #004f85;
     --base-padding: 1rem;
     --base-margin: 1rem;
-    --gray: #ccc;
+    --gray: #ddd;
 }
 
 body, html {
@@ -16,7 +16,7 @@ body, html {
 }
 
 h1{
-    font-size: 24px;
+    font-size: 20px;
 }
 
 * {
@@ -29,13 +29,21 @@ h1{
     margin: 0 auto;
 }
 
-.message-box{
+.message-box {
     border: 2px solid var(--gray);
-    border-radius:3px;
+    border-radius: 3px;
     padding: var(--base-padding);
     margin: var(--base-margin);
     font-size: 14px;
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
+    overflow: auto;
 }
+
+.message{
+    background-color: var(--carsales-blue);
+    float: right;
+    color: white;
+    border-radius: 100px;
+    padding: 0.5rem 1rem;
+    font-size: 12px;
+}
+
