@@ -30,7 +30,8 @@ namespace SharedLibrary
 
             using (SqlConnection cnn = new SqlConnection(connectionString))
             {
-                var sql = $"select MessageCount, QueueName, CreatedAt from QueueHistory where QueueName = '{queueName}' and CreatedAt between '{startDate}' and '{endDate}'";
+                var sql = $"select top 10 MessageCount, QueueName, CreatedAt from QueueHistory where QueueName = '{queueName}' and CreatedAt between '{startDate}' and '{endDate}'" +
+                    $" order by CreatedAt desc";
                 cnn.Open();
                 using (SqlCommand cmd = new SqlCommand(sql, cnn))
                 {

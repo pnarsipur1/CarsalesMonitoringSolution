@@ -2,36 +2,56 @@
     ViewBag.Title = "Home Page";
 }
 
-<div class="jumbotron" id="demo">
-    <h1>ASP.NET</h1>
-    <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-    <p><a href="https://asp.net" class="btn btn-primary btn-lg">Learn more &raquo;</a></p>
-</div>
-
-<div class="row">
-    <div class="col-md-4">
-        <h2>Getting started</h2>
-        <p>
-            ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-            enables a clean separation of concerns and gives you full control over markup
-            for enjoyable, agile development.
-        </p>
-        <p><a class="btn btn-default" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-    </div>    
-</div>
+<div id="data"><h1>Latest 10 RabbitMq Monitoring Stats: </h1></div>
 
 
-    <script type="text/javascript">
+<script type="text/javascript">
 
-        var url = 'http://localhost:60634/api/GetHistoryMessageCount/TestExchange/20180101T0000Z/20200101T0000Z';
-        var obj, dbParam, txt = "";
-        
-        fetch(url)
-            .then(function (response) {                
-                return response.json();
-            })
-            .then(function (myJson) {
-                console.log(JSON.stringify(myJson));
-            });     
-    </script>
+    const getHistoryurl = 'http://localhost:60634/api/GetHistoryMessageCount/TestExchange/20180101T0000Z/20200101T0000Z';
+    const getLiveMessageCounturl = 'http://localhost:60634/api/GetLiveMessageCount/TestExchange';
+    const div = document.getElementById('data');
+    function createNode(element) {
+        return document.createElement(element); // Create the type of element you pass in the parameters
+    }
+    function append(parent, el) {
+        return parent.appendChild(el); // Append the second parameter(element) to the first one
+    }
+
+    fetch(getHistoryurl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            let createArray = [];
+            let givenData = data.results;
+            createArray.push(givenData);
+            const newData = createArray.map((array) => {
+                return array.map((item) => {
+                    let li = createNode('li'),
+                        span = createNode('span');
+                    span.innerHTML = `Message count: ${item.MessageCount} Time: ${item.CreatedAt}`;
+                    append(li, span);
+                    append(div, li);
+                });
+
+            });
+
+        })
+
+    fetch(getLiveMessageCounturl)
+        .then(function (response) {
+            return response.json();
+        })
+        .then(function (data) {
+            debugger;
+            let createArray = [];
+            let givenData = data.results;
+            let li = createNode('li'),
+                span = createNode('span');
+            span.innerHTML = `Message count: ${givenData.MessageCount} Time: ${givenData.CreatedAt}`;
+            append(li, span);
+            append(div, li);
+        })
+
+</script>
 
