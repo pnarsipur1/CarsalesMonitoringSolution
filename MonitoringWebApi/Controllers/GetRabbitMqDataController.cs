@@ -4,9 +4,11 @@ using System;
 using System.Globalization;
 using System.Text.RegularExpressions;
 using System.Web.Http;
+using System.Web.Http.Cors;
 
 namespace MonitoringSite.Controllers
 {
+    [EnableCors(origins: "http://localhost:53659", headers: "*", methods: "*")]
     public class GetRabbitMqDataController : ApiController
     {
         private AppSettings _appSettings;
@@ -31,7 +33,7 @@ namespace MonitoringSite.Controllers
         }
 
         [HttpGet]
-        [Route("api/GetLiveMessageCount/{queueName}/{startDateString}/{endDateString}")]
+        [Route("api/GetHistoryMessageCount/{queueName}/{startDateString}/{endDateString}")]
         public IHttpActionResult GetHistoryMessageCount(string queueName, string startDateString, string endDateString)
         {
             var startDate = BuildDateTimeFromYAFormat(startDateString);
