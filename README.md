@@ -42,7 +42,7 @@ b. Ensure an exchange 'TestExchange' and 'Queue' is created and publish messages
 
 c. Download the code
 
-d. Open the solution MonitoringSolution.sln
+d. Open MonitoringSolution.sln in VS 2017
 
 e. Ensure that values in the config are correct ( Connectionstring to database, rabbitmq details, exchange and queuenames, etc )
 for the MonitoringWebi and PollingService
