@@ -8,7 +8,7 @@ using System.Web.Http.Cors;
 
 namespace MonitoringSite.Controllers
 {
-    [EnableCors(origins: "http://localhost:53659", headers: "*", methods: "*")]
+    [EnableCors(origins: "http://localhost:53659", headers: "*", methods: "*")]    
     public class GetRabbitMqDataController : ApiController
     {
         private AppSettings _appSettings;

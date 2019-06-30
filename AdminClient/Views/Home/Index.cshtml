@@ -2,14 +2,18 @@
     ViewBag.Title = "Home Page";
 }
 
-<div id="data"><h1>Latest 10 RabbitMq Monitoring Stats: </h1></div>
+<div id="history"><h1>Latest 10 RabbitMq Monitoring Stats </h1></div>
+<div id="current"><h1>Current RabbitMq Count </h1></div>
 
 
 <script type="text/javascript">
 
     const getHistoryurl = 'http://localhost:60634/api/GetHistoryMessageCount/TestExchange/20180101T0000Z/20200101T0000Z';
     const getLiveMessageCounturl = 'http://localhost:60634/api/GetLiveMessageCount/TestExchange';
-    const div = document.getElementById('data');
+
+    const divHistory = document.getElementById('history');
+    const divCurrent = document.getElementById('current');
+
     function createNode(element) {
         return document.createElement(element); // Create the type of element you pass in the parameters
     }
@@ -31,9 +35,8 @@
                         span = createNode('span');
                     span.innerHTML = `Message count: ${item.MessageCount} Time: ${item.CreatedAt}`;
                     append(li, span);
-                    append(div, li);
+                    append(divHistory, li);
                 });
-
             });
 
         })
@@ -42,15 +45,13 @@
         .then(function (response) {
             return response.json();
         })
-        .then(function (data) {
-            debugger;
-            let createArray = [];
+        .then(function (data) {            
             let givenData = data.results;
             let li = createNode('li'),
                 span = createNode('span');
             span.innerHTML = `Message count: ${givenData.MessageCount} Time: ${givenData.CreatedAt}`;
             append(li, span);
-            append(div, li);
+            append(divCurrent, li);
         })
 
 </script>
