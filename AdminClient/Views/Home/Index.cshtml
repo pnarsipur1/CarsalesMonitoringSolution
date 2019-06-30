@@ -1,10 +1,17 @@
 ﻿@{
     ViewBag.Title = "Home Page";
 }
+<div id="current"
+     ><h1>Current RabbitMq Count </h1>
+    </div>
 
-<div id="history"><h1>Latest 10 RabbitMq Monitoring Stats </h1></div>
-<div id="current"><h1>Current RabbitMq Count </h1></div>
+<div id="history">
+    <h1>Last 10 RabbitMq Monitoring Stats </h1>
+</div>
 
+
+
+</div>
 
 <script type="text/javascript">
 
@@ -15,10 +22,11 @@
     const divCurrent = document.getElementById('current');
 
     function createNode(element) {
-        return document.createElement(element); // Create the type of element you pass in the parameters
+        return document.createElement(element);
+
     }
     function append(parent, el) {
-        return parent.appendChild(el); // Append the second parameter(element) to the first one
+        return parent.appendChild(el);
     }
 
     fetch(getHistoryurl)
@@ -31,11 +39,14 @@
             createArray.push(givenData);
             const newData = createArray.map((array) => {
                 return array.map((item) => {
-                    let li = createNode('li'),
-                        span = createNode('span');
-                    span.innerHTML = `Message count: ${item.MessageCount} Time: ${item.CreatedAt}`;
-                    append(li, span);
-                    append(divHistory, li);
+                    let messageBox = createNode('div'),
+                        message = createNode('div');
+                    messageBox.className = 'message-box';
+                    message.className = 'message';
+                    const dateToString = new Date(`${item.CreatedAt}`);
+                    message.innerHTML = `Posted On: ${dateToString.toString()} Messages: ${item.MessageCount} `;
+                    append(messageBox, message);
+                    append(divHistory, messageBox);
                 });
             });
 
@@ -45,13 +56,16 @@
         .then(function (response) {
             return response.json();
         })
-        .then(function (data) {            
+        .then(function (data) {
             let givenData = data.results;
-            let li = createNode('li'),
-                span = createNode('span');
-            span.innerHTML = `Message count: ${givenData.MessageCount} Time: ${givenData.CreatedAt}`;
-            append(li, span);
-            append(divCurrent, li);
+            let messageBox = createNode('div'),
+                message = createNode('div');
+            messageBox.className = 'message-box';
+            message.className = 'message';
+            const dateToString = new Date(`${givenData.CreatedAt}`);
+            message.innerHTML = `Message count: ${givenData.MessageCount} Posted On: ${dateToString.toString()}`;
+            append(messageBox, message);
+            append(divCurrent, messageBox);
         })
 
 </script>
